@@ -24,7 +24,9 @@ function hello () {
 }
 
 html =
-`<ul>
+`
+<a href="../../index.html">Home Page</a>
+<ul>
     <li>Name: ${name}</li>
     <li>Age: ${age}</li>
     <li>City: ${city}</li>
