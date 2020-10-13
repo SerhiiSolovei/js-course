@@ -29,4 +29,4 @@ li.appendChild(link);
 const list = document.querySelector('ul.collection');
 list.appendChild(li);
 
-console.log(li);
+// console.log(li);
