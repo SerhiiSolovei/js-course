@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "Mike Smith",
+    "company": "Organic Food",
+    "phone": "123-456-7890"
+  },
+
+  {
+    "id": 2,
+    "name": "Jason Brown",
+    "company": "Photo & Video Maker",
+    "phone": "123-444-6663"
+  },
+
+  {
+    "id": 3,
+    "name": "Maria Williams",
+    "company": "Ocean Waves",
+    "phone": "777-443-8765"
+  }
+]
