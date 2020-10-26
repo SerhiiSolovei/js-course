@@ -107,7 +107,9 @@ document.querySelector('#book-list').addEventListener('click', function (e) {
   ui.deleteBook(e.target);
 
   // Show Alert
-  ui.showAlert('Book Removed!', 'success');
+  if (e.target.className === 'delete') {
+    ui.showAlert('Book Removed!', 'success');
+  }
 
   e.preventDefault();
 });

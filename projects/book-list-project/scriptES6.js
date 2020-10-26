@@ -1,8 +1,8 @@
 class Book {
-  constructor(title, author, isdn) {
+  constructor(title, author, isbn) {
     this.title = title;
     this.author = author;
-    this.isdn = isdn;
+    this.isbn = isbn;
   }
 }
 
@@ -62,6 +62,54 @@ class UI {
   }
 }
 
+// Local Storage Class
+class Store {
+  static getBooks() {
+    let books;
+    if (localStorage.getItem('books') === null) {
+      books = [];
+    } else {
+      books = JSON.parse(localStorage.getItem('books'));
+    }
+
+    return books;
+  }
+
+  static displayBooks() {
+    const books = Store.getBooks();
+
+    books.forEach(function(book) {
+      const ui = new UI();
+
+      // Add Book To UI
+      ui.addBookToList(book);
+    });
+  }
+
+  static addBook(book) {
+    const books = Store.getBooks();
+
+    books.push(book);
+
+    localStorage.setItem('books', JSON.stringify(books));
+  }
+
+  static removeBook(isbn) {
+    const books = Store.getBooks();
+
+    books.forEach(function(book, index) {
+      if (book.isbn === isbn) {
+        books.splice(index, 1);
+      }
+    });
+
+    localStorage.setItem('books', JSON.stringify(books));
+  }
+}
+
+// DOM Load Event
+document.addEventListener('DOMContentLoaded', Store.displayBooks);
+
 // Event Listener for Add Book
 document.getElementById('book-form').addEventListener('submit', function (e) {
   // Get form values
@@ -83,11 +131,15 @@ document.getElementById('book-form').addEventListener('submit', function (e) {
     // Add book to list
     ui.addBookToList(book);
 
+    // Add book to Local Storage
+    Store.addBook(book);
+
     // Show Success Alert
     ui.showAlert('Book Added!', 'success');
 
     //Clear Fields
     ui.clearFields();
+
   };
 
   e.preventDefault();
@@ -95,15 +147,19 @@ document.getElementById('book-form').addEventListener('submit', function (e) {
 
 // Event Listener for Delete
 document.querySelector('#book-list').addEventListener('click', function (e) {
-
   // Instantiate UI
   const ui = new UI();
 
   // Delete Book
   ui.deleteBook(e.target);
 
+  //Remove Book from Local Storage
+  Store.removeBook(e.target.parentElement.previousElementSibling.textContent);
+
   // Show Alert
-  ui.showAlert('Book Removed!', 'success');
+  if (e.target.className === 'delete') {
+    ui.showAlert('Book Removed!', 'success');
+  }
 
   e.preventDefault();
 });
