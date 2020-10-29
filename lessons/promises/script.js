@@ -9,7 +9,7 @@ function createPost (post) {
     setTimeout(function () {
       posts.push(post);
 
-      const error = true;
+      const error = false;
 
       if (!error) {
         resolve();
