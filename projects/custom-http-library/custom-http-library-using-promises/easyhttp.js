@@ -1,5 +1,6 @@
 /**
  * Easy HTTP Library
+ * @version 2.0.0
  * Library for making HTTP Request
 */
 
