@@ -20,6 +20,17 @@ const people = ['John', 'Mike', 'Alex'];
 const [person1, person2, person3] = people;
 console.log(person1, person2, person3, typeof person1); // John Mike Alex string
 
+const fib = [1, 1, 2, 3, 5, 8, 13];
+// const [firstNum, secondNum, thirdNum] = fib;
+// console.log(firstNum, secondNum, thirdNum); // 1 1 2
+
+const [, secondNum, , fourthNum] = fib;
+console.log(secondNum, fourthNum); // 1 3
+
+const line = [[10,17], [14,7]];
+const [[p1x,p1y],[p2x,p2y]] = line;
+console.log(p1x,p1y,p2x,p2y); // 10 17 14 7
+
 // Parse array returned from function
 function getPeople() {
   return ['Steve', 'Bruce', 'Chris'];
@@ -49,3 +60,74 @@ const {name, age, city, sayHello} = person;
 console.log(name, age, city); // Alex Smith 25 Boston
 
 sayHello(); // Hello
+
+
+const anotherPerson = {
+  name: {
+    first: 'Mike',
+    last: 'Johnson'
+  },
+  age: 32,
+  city: 'Miami'
+};
+
+// const { name: {first, last} } = anotherPerson;
+
+// console.log(first, last); // Mike Johnson
+
+const { name: {first: firstName, last: lastName} } = anotherPerson;
+console.log(firstName, lastName); // Mike Johnson
+
+// Default property
+const { role = 'user' } = anotherPerson;
+console.log(role); // user
+
+// Rest element
+const dict = {
+  duck: 'quack',
+  dog: 'wuff',
+  mouse: 'squeak'
+};
+
+const {duck, ...otherAnimals} = dict;
+console.log(duck, otherAnimals); // quack {dog: "wuff", mouse: "squeak"}
+
+// Find everyone who makes 'squeak'
+const dict1 = {
+  duck: 'quack',
+  dog: 'wuff',
+  mouse: 'squeak',
+  hamster: 'squeak'
+};
+
+const res = Object.entries(dict1)
+  .filter(([key, value]) => value === 'squeak')
+  .map(([key]) => key);
+
+  console.log(res); // ["mouse", "hamster"]
+
+// Function Destructuring
+function connect ({
+  host = 'localhost',
+  port = 12345,
+  user = 'guest'
+} = {}) {
+  console.log(`User: ${user}, host: ${host}, port: ${port}`);
+};
+
+connect({port: 77777}); // User: guest, host: localhost, port: 77777
+connect(); // User: guest, host: localhost, port: 12345
+
+
+// Combination of array and object destructuring
+const shape = {
+  type: 'segment',
+  coordinations: {
+    start: [10, 15],
+    end: [17, 15]
+  }
+};
+
+const { coordinations: { start: [startX, startY], end: [endX, endY]}} = shape;
+
+console.log(`X: ${startX}, ${endX}, Y: ${startY},${endY}`); // X: 10, 17, Y: 15,15
